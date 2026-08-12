@@ -1,0 +1,22 @@
+# Configurações locais
+.env
+.env.*
+
+# Dependências
+node_modules/
+
+# Build
+dist/
+build/
+.next/
+
+# Logs
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
