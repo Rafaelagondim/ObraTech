@@ -1,23 +1,62 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-100 flex items-center justify-center px-6">
-      <section className="max-w-2xl text-center">
-        <h1 className="text-5xl font-bold text-slate-900">
-          OBRATECH
-        </h1>
+    <main className="min-h-screen bg-[#F5F7F8] flex items-center justify-center px-6">
+      <section className="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="grid md:grid-cols-2">
 
-        <p className="mt-4 text-2xl font-medium text-slate-700">
-          Sistema de Orçamento e Planejamento de Obras
-        </p>
+          {/* Lado esquerdo */}
+          <div className="bg-[#123F4A] text-white flex flex-col justify-center px-8 py-12 md:px-12">
 
-        <p className="mt-6 text-lg text-slate-600">
-          Organize sua obra, planeje os ambientes e tenha mais controle
-          sobre os custos do seu projeto.
-        </p>
+            <div className="mb-8">
+              <span className="inline-block bg-[#FFC400] text-[#123F4A] px-4 py-2 rounded-full text-sm font-semibold">
+                Gestão de obras
+              </span>
+            </div>
 
-        <button className="mt-8 rounded-lg bg-slate-900 px-8 py-3 text-lg font-semibold text-white hover:bg-slate-700">
-          Entrar
-        </button>
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+              Organize sua obra.
+              <br />
+              Planeje seus custos.
+            </h1>
+
+            <p className="text-lg text-white/80 leading-relaxed max-w-md">
+              O ObraTech ajuda você a organizar ambientes,
+              calcular materiais e acompanhar os custos da
+              sua construção de forma simples e eficiente.
+            </p>
+
+          </div>
+
+          {/* Lado direito */}
+          <div className="flex flex-col items-center justify-center px-8 py-12 md:px-12">
+
+            <div className="w-full max-w-sm flex justify-center mb-6">
+              <Image
+                src="/logo-obratech.png"
+                alt="Logo ObraTech"
+                width={400}
+                height={300}
+                className="w-full h-auto object-contain"
+                priority
+              />
+            </div>
+
+            <p className="text-[#263238] text-center text-lg mb-8">
+              Sistema de Orçamento e Planejamento de Obras
+            </p>
+
+            <button
+              type="button"
+              className="w-full max-w-xs bg-[#FFC400] hover:bg-[#E6B000] text-[#123F4A] font-bold py-4 px-6 rounded-xl transition-colors shadow-md"
+            >
+              Entrar
+            </button>
+
+          </div>
+
+        </div>
       </section>
     </main>
   );
