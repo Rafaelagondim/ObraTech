@@ -27,7 +27,6 @@ export default function Login() {
         </div>
 
         <form className="space-y-5">
-
           <div>
             <label
               htmlFor="email"
