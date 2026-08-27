@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Dashboard() {
   return (
     <main className="min-h-screen bg-[#F5F7F8]">
@@ -47,10 +48,13 @@ export default function Dashboard() {
               </h2>
             </div>
 
-            <button className="rounded-xl bg-[#FFC400] px-6 py-3 font-bold text-[#123F4A] shadow-md hover:bg-[#E6B000]">
-              + Nova obra
-            </button>
-          </header>
+            <Link
+            href="/obras/nova"
+            className="rounded-xl bg-[#FFC400] px-6 py-3 font-bold text-[#123F4A] shadow-md hover:bg-[#E6B000]"
+            >
+            + Nova obra
+           </Link>
+         </header>  
 
           {/* Indicadores */}
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-10">
