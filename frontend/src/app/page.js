@@ -1,92 +1,63 @@
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Login() {
+export default function Home() {
   return (
-    <main className="min-h-screen bg-[#F5F7F8] flex items-center justify-center px-6 py-12">
-      <section className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 md:p-10">
+    <main className="min-h-screen bg-[#F5F7F8] flex items-center justify-center px-6">
+      <section className="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div className="grid md:grid-cols-2">
 
-        <div className="flex justify-center mb-8">
-          <Image
-            src="/logo-obratech.png"
-            alt="Logo ObraTech"
-            width={320}
-            height={240}
-            className="w-64 h-auto object-contain"
-            priority
-          />
-        </div>
+          {/* Lado esquerdo */}
+          <div className="bg-[#123F4A] text-white flex flex-col justify-center px-8 py-12 md:px-12">
 
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-[#123F4A]">
-            Bem-vindo ao ObraTech
-          </h1>
+            <div className="mb-8">
+              <span className="inline-block bg-[#FFC400] text-[#123F4A] px-4 py-2 rounded-full text-sm font-semibold">
+                Gestão de obras
+              </span>
+            </div>
 
-          <p className="mt-3 text-[#607D85]">
-            Entre para acessar seus projetos e orçamentos.
-          </p>
-        </div>
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
+              Organize sua obra.
+              <br />
+              Planeje seus custos.
+            </h1>
 
-        <form className="space-y-5">
+            <p className="text-lg text-white/80 leading-relaxed max-w-md">
+              O ObraTech ajuda você a organizar ambientes,
+              calcular materiais e acompanhar os custos da
+              sua construção de forma simples e eficiente.
+            </p>
 
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-semibold text-[#263238] mb-2"
-            >
-              E-mail
-            </label>
-
-            <input
-              id="email"
-              type="email"
-              placeholder="Digite seu e-mail"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-[#FFC400] focus:ring-2 focus:ring-[#FFC400]/30"
-            />
           </div>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-semibold text-[#263238] mb-2"
-            >
-              Senha
-            </label>
+          {/* Lado direito */}
+          <div className="flex flex-col items-center justify-center px-8 py-12 md:px-12">
 
-            <input
-              id="password"
-              type="password"
-              placeholder="Digite sua senha"
-              className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-[#FFC400] focus:ring-2 focus:ring-[#FFC400]/30"
-            />
+            <div className="w-full max-w-sm flex justify-center mb-6">
+              <Image
+                src="/logo-obratech.png"
+                alt="Logo ObraTech"
+                width={400}
+                height={300}
+                className="w-full h-auto object-contain"
+                priority
+              />
+            </div>
+
+            <p className="text-[#263238] text-center text-lg mb-8">
+              Sistema de Orçamento e Planejamento de Obras
+            </p>
+
+            <Link
+              href="/login"
+              className="w-full max-w-xs bg-[#FFC400] hover:bg-[#E6B000] text-[#123F4A] text-center font-bold py-4 px-6 rounded-xl transition-colors shadow-md"
+            >
+              Entrar
+            </Link>
+
           </div>
 
-          <div className="text-right">
-            <button
-              type="button"
-              className="text-sm font-medium text-[#123F4A] hover:text-[#FFC400]"
-            >
-              Esqueci minha senha
-            </button>
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-xl bg-[#FFC400] py-3.5 text-[#123F4A] font-bold text-lg shadow-md transition-colors hover:bg-[#E6B000]"
-          >
-            Entrar
-          </button>
-        </form>
-
-        <div className="mt-8 text-center text-sm text-[#607D85]">
-          Ainda não possui uma conta?
-          <button
-            type="button"
-            className="ml-1 font-bold text-[#123F4A] hover:text-[#FFC400]"
-          >
-            Criar conta
-          </button>
         </div>
-
       </section>
     </main>
   );
