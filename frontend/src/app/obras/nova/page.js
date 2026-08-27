@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function NovaObra() {
   const [nome, setNome] = useState("");
@@ -183,20 +184,20 @@ export default function NovaObra() {
 
             <div className="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:justify-end">
 
-              <button
-                type="button"
-                className="rounded-xl border border-gray-300 px-6 py-3 font-semibold text-[#263238] hover:bg-gray-50"
-              >
-                Cancelar
-              </button>
+             
+              <Link
+  href="/dashboard"
+  className="rounded-xl border border-gray-300 px-6 py-3 font-semibold text-[#263238] transition hover:bg-gray-100"
+>
+  Cancelar
+</Link>
 
-              <button
-                type="submit"
-                className="rounded-xl bg-[#FFC400] px-6 py-3 font-bold text-[#123F4A] shadow-md hover:bg-[#E6B000]"
-              >
-                Salvar obra
-              </button>
-
+<button
+  type="submit"
+  className="rounded-xl bg-[#FFC400] px-6 py-3 font-semibold text-[#263238] transition hover:bg-[#E6B000]"
+>
+  Salvar obra
+</button>
             </div>
 
           </form>
