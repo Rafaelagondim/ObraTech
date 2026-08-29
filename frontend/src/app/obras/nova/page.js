@@ -12,7 +12,7 @@ export default function NovaObra() {
   const [dataInicio, setDataInicio] = useState("");
   const [mensagem, setMensagem] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (!nome || !cidade || !estado) {
@@ -24,10 +24,33 @@ export default function NovaObra() {
       setMensagem("O estado deve ser informado com 2 letras, como PE.");
       return;
     }
+    
+    const novaObra = {
+  nome,
+  descricao,
+  cidade,
+  estado,
+  areaConstruida,
+  dataInicio,
+};
 
-    setMensagem("Dados preenchidos corretamente.");
+const resposta = await fetch("/api/obras", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(novaObra),
+});
+
+   const resultado = await resposta.json();
+
+if (!resposta.ok) {
+  setMensagem(resultado.mensagem || "Erro ao salvar obra.");
+  return;
+}
+
+setMensagem(resultado.mensagem);
   }
-
   return (
     <main className="min-h-screen bg-[#F5F7F8] px-6 py-10">
       <div className="mx-auto max-w-3xl">
