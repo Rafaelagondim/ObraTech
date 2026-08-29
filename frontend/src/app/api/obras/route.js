@@ -58,3 +58,43 @@ export async function POST(request) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    const usuarioId = 1;
+
+    const resultado = await pool.query(
+      `
+        SELECT
+          id,
+          nome,
+          descricao,
+          cidade,
+          estado,
+          area_construida_m2,
+          data_inicio,
+          criado_em
+        FROM obras
+        WHERE usuario_id = $1
+        ORDER BY criado_em DESC;
+      `,
+      [usuarioId]
+    );
+
+    return Response.json(
+      {
+        obras: resultado.rows,
+      },
+      { status: 200 }
+    );
+  } catch (erro) {
+    console.error("Erro ao buscar obras:", erro);
+
+    return Response.json(
+      {
+        mensagem: "Erro ao buscar obras.",
+      },
+      { status: 500 }
+    );
+  }
+}
