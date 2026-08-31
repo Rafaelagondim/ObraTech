@@ -51,6 +51,17 @@ if (!resposta.ok) {
 
 setMensagem(resultado.mensagem);
   }
+
+  function cadastrarOutraObra() {
+  setNome("");
+  setDescricao("");
+  setCidade("");
+  setEstado("");
+  setAreaConstruida("");
+  setDataInicio("");
+  setMensagem("");
+}
+
   return (
     <main className="min-h-screen bg-[#F5F7F8] px-6 py-10">
       <div className="mx-auto max-w-3xl">
@@ -204,6 +215,25 @@ setMensagem(resultado.mensagem);
                 {mensagem}
               </div>
             )}
+
+            {mensagem === "Obra salva com sucesso." && (
+  <div className="flex flex-col gap-3 sm:flex-row">
+    <Link
+      href="/obras"
+      className="rounded-xl bg-[#123F4A] px-5 py-3 text-center font-semibold text-white transition hover:opacity-90"
+    >
+      Ver minhas obras
+    </Link>
+
+    <button
+      type="button"
+      onClick={cadastrarOutraObra}
+      className="rounded-xl border border-[#123F4A] px-5 py-3 font-semibold text-[#123F4A] transition hover:bg-gray-50"
+    >
+      Cadastrar outra obra
+    </button>
+  </div>
+)}
 
             <div className="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:justify-end">
 

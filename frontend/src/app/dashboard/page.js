@@ -12,12 +12,15 @@ export default function Dashboard() {
 
           <nav className="space-y-3">
             <button className="w-full text-left rounded-lg bg-[#FFC400] px-4 py-3 font-semibold text-[#123F4A]">
-              Dashboard
+              Painel
             </button>
 
-            <button className="w-full text-left rounded-lg px-4 py-3 hover:bg-white/10">
-              Obras
-            </button>
+           <Link
+  href="/obras"
+  className="block w-full rounded-lg px-4 py-3 text-left hover:bg-white/10"
+>
+  Obras
+</Link>
 
             <button className="w-full text-left rounded-lg px-4 py-3 hover:bg-white/10">
               Ambientes
