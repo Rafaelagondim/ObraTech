@@ -53,8 +53,11 @@ return Response.json(
   }
 }
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+const obraId = searchParams.get("obraId");
+
     const resultado = await pool.query(`
       SELECT
         id,
@@ -65,8 +68,11 @@ export async function GET() {
         altura_m,
         criado_em
       FROM ambientes
+      WHERE obra_id = $1
       ORDER BY id;
-    `);
+    `,
+    [obraId]
+  );
 
     return Response.json(resultado.rows);
   } catch (erro) {

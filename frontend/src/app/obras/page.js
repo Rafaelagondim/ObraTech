@@ -89,6 +89,14 @@ export default function MinhasObras() {
     {obra.descricao}
   </p>
 )}
+
+<Link
+  href={`/obras/${obra.id}/ambientes`}
+  className="mt-5 inline-block rounded-xl bg-[#123F4A] px-4 py-2 font-semibold text-white transition hover:opacity-90"
+>
+  Ver ambientes
+</Link>
+
     </div>
   ))}
 </div>
