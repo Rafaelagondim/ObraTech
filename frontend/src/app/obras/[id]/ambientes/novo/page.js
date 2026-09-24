@@ -1,17 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function NovoAmbiente() {
   const params = useParams();
   const obraId = params.id;
+  const router = useRouter();
 
   const [nome, setNome] = useState("");
   const [largura, setLargura] = useState("");
   const [comprimento, setComprimento] = useState("");
   const [altura, setAltura] = useState("");
   const [mensagem, setMensagem] = useState("");
+
+  async function handleSubmit(event) {
+   event.preventDefault();
+
+   const dados = {
+    obraId,
+    nome,
+    largura,
+    comprimento,
+    altura,
+   };
+
+   const resposta = await fetch("/api/ambientes", {
+    method: "POST",
+    headers: {
+     "Content-Type": "application/json",
+   },
+   body: JSON.stringify(dados),
+  });
+
+  const resultado = await resposta.json();
+
+  setMensagem(resultado.mensagem);
+
+  if (resposta.ok) {
+  router.replace(`/obras/${obraId}/ambientes`);
+}
+}
 
   return (
     <main className="min-h-screen bg-[#F5F7F8] p-8">
@@ -28,7 +58,10 @@ export default function NovoAmbiente() {
           Obra ID: {obraId}
         </p>
 
-        <form className="mt-8 space-y-5 rounded-2xl bg-white p-6 shadow-sm">
+        <form
+  onSubmit={handleSubmit}
+  className="mt-8 space-y-5 rounded-2xl bg-white p-6 shadow-sm"
+>
   <div>
     <label className="mb-2 block font-semibold text-[#263238]">
       Nome do ambiente
@@ -88,13 +121,20 @@ export default function NovoAmbiente() {
     />
   </div>
 
+  {mensagem && (
+  <p className="rounded-xl bg-gray-100 px-4 py-3 text-sm font-medium text-[#263238]">
+    {mensagem}
+  </p>
+)}
+
   <div className="flex gap-3 pt-3">
-  <button
-    type="button"
-    className="rounded-xl border border-gray-300 px-6 py-3 font-semibold text-[#263238] transition hover:bg-gray-100"
-  >
-    Cancelar
-  </button>
+
+  <Link
+  href={`/obras/${obraId}/ambientes`}
+  className="rounded-xl border border-gray-300 px-6 py-3 font-semibold text-[#263238] transition hover:bg-gray-100"
+>
+  Cancelar
+</Link>
 
   <button
     type="submit"
