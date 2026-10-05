@@ -10,6 +10,24 @@ export default function AmbientesDaObra() {
 
   const [ambientes, setAmbientes] = useState([]);
 
+  function calcularAreaPiso(largura, comprimento) {
+  return Number(largura) * Number(comprimento);
+}
+
+function calcularPerimetro(largura, comprimento) {
+  return 2 * (Number(largura) + Number(comprimento));
+}
+
+function calcularAreaParedes(largura, comprimento, altura) {
+  const perimetro = calcularPerimetro(largura, comprimento);
+
+  return perimetro * Number(altura);
+}
+
+function calcularAreaTeto(largura, comprimento) {
+  return calcularAreaPiso(largura, comprimento);
+}
+
   useEffect(() => {
   async function buscarAmbientes() {
     try {
@@ -66,6 +84,56 @@ export default function AmbientesDaObra() {
       <p className="text-[#607D85]">
         Altura: {ambiente.altura_m} m
       </p>
+
+      <p className="mt-3 font-semibold text-[#123F4A]">
+  Área do piso:{" "}
+  {calcularAreaPiso(
+    ambiente.largura_m,
+    ambiente.comprimento_m
+  ).toLocaleString("pt-BR", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})}{" "}
+  m²
+</p>
+
+<p className="mt-1 font-semibold text-[#123F4A]">
+  Perímetro:{" "}
+  {calcularPerimetro(
+    ambiente.largura_m,
+    ambiente.comprimento_m
+  ).toLocaleString("pt-BR", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})}{" "}
+  m
+</p>
+
+<p className="mt-1 font-semibold text-[#123F4A]">
+  Área das paredes:{" "}
+  {calcularAreaParedes(
+    ambiente.largura_m,
+    ambiente.comprimento_m,
+    ambiente.altura_m
+  ).toLocaleString("pt-BR", {
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+})}{" "}
+  m²
+</p>
+
+<p className="mt-1 font-semibold text-[#123F4A]">
+  Área do teto:{" "}
+  {calcularAreaTeto(
+    ambiente.largura_m,
+    ambiente.comprimento_m
+  ).toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })}{" "}
+  m²
+</p>
+
     </div>
   ))}
 </div>
