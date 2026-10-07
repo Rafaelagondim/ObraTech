@@ -134,6 +134,13 @@ function calcularAreaTeto(largura, comprimento) {
   m²
 </p>
 
+<Link
+  href={`/obras/${obraId}/ambientes/orcamento?ambienteId=${ambiente.id}`}
+  className="mt-5 inline-block rounded-xl bg-[#FFC400] px-4 py-2 font-semibold text-[#263238] transition hover:bg-[#E6B000]"
+>
+  Orçamento
+</Link>
+
     </div>
   ))}
 </div>
