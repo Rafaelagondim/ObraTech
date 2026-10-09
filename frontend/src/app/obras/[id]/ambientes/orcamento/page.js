@@ -16,6 +16,7 @@ export default function OrcamentoAmbiente() {
   const [quantidade, setQuantidade] = useState("");
   const [precoUnitario, setPrecoUnitario] = useState("");
   const [tipoCalculo, setTipoCalculo] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
   async function handleSubmit(event) {
   event.preventDefault();
@@ -34,6 +35,11 @@ body: JSON.stringify({
   tipo_calculo: tipoCalculo,
 }),
 });
+
+if (resposta.ok) {
+  setMensagem("Material cadastrado com sucesso!");
+}
+
 }
 
   return (
@@ -123,6 +129,12 @@ body: JSON.stringify({
 >
   Adicionar material
 </button>
+
+{mensagem && (
+  <p className="mt-4 rounded-xl bg-green-100 p-4 text-center font-semibold text-green-800">
+    {mensagem}
+  </p>
+)}
 
 </form>
 
