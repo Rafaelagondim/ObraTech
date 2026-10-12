@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
@@ -17,6 +17,24 @@ export default function OrcamentoAmbiente() {
   const [precoUnitario, setPrecoUnitario] = useState("");
   const [tipoCalculo, setTipoCalculo] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const [materiais, setMateriais] = useState([]);
+
+  async function buscarMateriais() {
+  if (!ambienteId) return;
+
+  const resposta = await fetch(
+    `/api/materiais?ambienteId=${ambienteId}`
+  );
+
+  if (resposta.ok) {
+    const dados = await resposta.json();
+    setMateriais(dados);
+  }
+}
+
+useEffect(() => {
+  buscarMateriais();
+}, [ambienteId]);
 
   async function handleSubmit(event) {
   event.preventDefault();
@@ -137,6 +155,27 @@ if (resposta.ok) {
 )}
 
 </form>
+
+<section className="mt-8">
+  <h2 className="mb-4 text-xl font-bold text-[#123F4A]">
+    Materiais cadastrados
+  </h2>
+
+  {materiais.map((material) => (
+  <div
+    key={material.id}
+    className="mb-3 rounded-xl bg-white p-4 shadow-sm"
+  >
+    <p className="font-semibold text-[#263238]">
+      {material.nome}
+    </p>
+
+    <p className="mt-2 text-sm text-[#607D85]">
+  Quantidade: {material.quantidade} {material.unidade}
+</p>
+  </div>
+))}
+</section>
 
         <Link
           href={`/obras/${obraId}/ambientes`}

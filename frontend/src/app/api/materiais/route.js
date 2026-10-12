@@ -43,3 +43,18 @@ return Response.json(resultado.rows[0], { status: 201 });
 );
 }
 }
+
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const ambienteId = searchParams.get("ambienteId");
+
+  const resultado = await pool.query(
+  `SELECT *
+   FROM materiais
+   WHERE ambiente_id = $1
+   ORDER BY id DESC`,
+  [ambienteId]
+);
+
+  return Response.json(resultado.rows);
+}
