@@ -173,9 +173,45 @@ if (resposta.ok) {
     <p className="mt-2 text-sm text-[#607D85]">
   Quantidade: {material.quantidade} {material.unidade}
 </p>
+
+<p className="mt-2 text-sm text-[#607D85]">
+  Preço unitário: {Number(material.preco_unitario).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  })}
+</p>
+
+<p className="mt-2 text-sm font-semibold text-[#123F4A]">
+  Subtotal: {(Number(material.quantidade) * Number(material.preco_unitario)).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  })}
+</p>
+
   </div>
 ))}
 </section>
+
+<div className="mt-6 rounded-xl bg-[#123F4A] p-6 text-white">
+  <p className="text-sm font-semibold">
+    Valor total do orçamento
+  </p>
+
+  <p className="mt-2 text-2xl font-bold">
+    {materiais
+      .reduce(
+        (total, material) =>
+          total +
+          Number(material.quantidade) *
+            Number(material.preco_unitario),
+        0
+      )
+      .toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      })}
+  </p>
+</div>
 
         <Link
           href={`/obras/${obraId}/ambientes`}
