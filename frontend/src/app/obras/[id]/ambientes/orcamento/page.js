@@ -56,6 +56,21 @@ body: JSON.stringify({
 
 if (resposta.ok) {
   setMensagem("Material cadastrado com sucesso!");
+
+  setNome("");
+  setUnidade("");
+  setQuantidade("");
+  setPrecoUnitario("");
+  setTipoCalculo("");
+
+  const listaAtualizada = await fetch(
+  `/api/materiais?ambienteId=${ambienteId}`
+);
+
+if (listaAtualizada.ok) {
+  const dados = await listaAtualizada.json();
+  setMateriais(dados);
+}
 }
 
 }
