@@ -75,6 +75,39 @@ if (listaAtualizada.ok) {
 
 }
 
+async function excluirMaterial(material) {
+  const confirmou = window.confirm(
+    `Deseja realmente excluir o material "${material.nome}"?`
+  );
+
+  if (!confirmou) {
+    return;
+  }
+
+  try {
+    const resposta = await fetch(
+      `/api/materiais?id=${material.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!resposta.ok) {
+      window.alert("Não foi possível excluir o material.");
+      return;
+    }
+
+    setMateriais((listaAtual) =>
+      listaAtual.filter((item) => item.id !== material.id)
+    );
+
+    setMensagem("Material excluído com sucesso!");
+  } catch (erro) {
+    console.error("Erro ao excluir material:", erro);
+    window.alert("Ocorreu um erro ao excluir o material.");
+  }
+}
+
   return (
     <main className="min-h-screen bg-[#F5F7F8] p-8">
       <div className="mx-auto max-w-5xl">
@@ -202,6 +235,14 @@ if (listaAtualizada.ok) {
     currency: "BRL",
   })}
 </p>
+
+<button
+  type="button"
+  onClick={() => excluirMaterial(material)}
+  className="mt-3 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+>
+  Excluir
+</button>
 
   </div>
 ))}

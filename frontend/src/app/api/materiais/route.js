@@ -58,3 +58,40 @@ export async function GET(request) {
 
   return Response.json(resultado.rows);
 }
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const materialId = Number(searchParams.get("id"));
+
+    if (!Number.isInteger(materialId) || materialId <= 0) {
+      return Response.json(
+        { erro: "ID do material inválido" },
+        { status: 400 }
+      );
+    }
+
+    const resultado = await pool.query(
+      "DELETE FROM materiais WHERE id = $1 RETURNING id",
+      [materialId]
+    );
+
+    if (resultado.rowCount === 0) {
+      return Response.json(
+        { erro: "Material não encontrado" },
+        { status: 404 }
+      );
+    }
+
+    return Response.json({
+      mensagem: "Material excluído com sucesso!",
+    });
+  } catch (erro) {
+    console.error("Erro ao excluir material:", erro);
+
+    return Response.json(
+      { erro: "Erro ao excluir material" },
+      { status: 500 }
+    );
+  }
+}
