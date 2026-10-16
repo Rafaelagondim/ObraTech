@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
+// Importa os ícones utilizados nas ações dos materiais.
+import { Pencil, Trash2 } from "lucide-react";
+
 export default function OrcamentoAmbiente() {
   const params = useParams();
   const obraId = params.id;
@@ -18,6 +21,10 @@ export default function OrcamentoAmbiente() {
   const [tipoCalculo, setTipoCalculo] = useState("");
   const [mensagem, setMensagem] = useState("");
   const [materiais, setMateriais] = useState([]);
+
+  // Guarda o ID do material que está sendo editado.
+  // null significa que nenhum material está em edição.
+  const [materialEditando, setMaterialEditando] = useState(null);
 
   async function buscarMateriais() {
   if (!ambienteId) return;
@@ -36,15 +43,53 @@ useEffect(() => {
   buscarMateriais();
 }, [ambienteId]);
 
+// Preenche o formulário com os dados do material selecionado para edição.
+function iniciarEdicao(material) {
+  setMaterialEditando(material.id);
+  setNome(material.nome);
+  setUnidade(material.unidade);
+  setQuantidade(String(material.quantidade));
+  setPrecoUnitario(String(material.preco_unitario));
+  setTipoCalculo(material.tipo_calculo);
+  setMensagem("");
+}
+
+// Cancela a edição e limpa os campos do formulário.
+function cancelarEdicao() {
+  // Remove o ID do material que estava sendo editado.
+  setMaterialEditando(null);
+
+  // Limpa os campos para permitir um novo cadastro.
+  setNome("");
+  setUnidade("");
+  setQuantidade("");
+  setPrecoUnitario("");
+  setTipoCalculo("");
+
+  // Remove mensagens anteriores.
+  setMensagem("");
+}
+
   async function handleSubmit(event) {
   event.preventDefault();
 
+  // Verifica se estamos editando um material existente.
+const estaEditando = materialEditando !== null;
+
+// Na edição usamos PUT; no cadastro usamos POST.
+const metodo = estaEditando ? "PUT" : "POST";
+
+// Envia os dados do material para a API.
   const resposta = await fetch("/api/materiais", {
-  method: "POST",
+  // Define automaticamente se a operação será cadastro ou edição.
+method: metodo,
   headers: {
   "Content-Type": "application/json",
 },
 body: JSON.stringify({
+  // Envia o ID somente quando estamos editando um material.
+...(estaEditando ? { id: materialEditando } : {}),
+
   ambiente_id: Number(ambienteId),
   nome: nome,
   unidade: unidade,
@@ -55,13 +100,22 @@ body: JSON.stringify({
 });
 
 if (resposta.ok) {
-  setMensagem("Material cadastrado com sucesso!");
+  // Exibe uma mensagem diferente para cadastro e edição.
+setMensagem(
+  estaEditando
+    ? "Material atualizado com sucesso!"
+    : "Material cadastrado com sucesso!"
+);
 
   setNome("");
   setUnidade("");
   setQuantidade("");
   setPrecoUnitario("");
   setTipoCalculo("");
+
+  // Encerra o modo de edição após salvar com sucesso.
+// null permite que o próximo material seja cadastrado normalmente.
+setMaterialEditando(null);
 
   const listaAtualizada = await fetch(
   `/api/materiais?ambienteId=${ambienteId}`
@@ -193,8 +247,20 @@ async function excluirMaterial(material) {
   type="submit"
   className="mt-6 w-full rounded-xl bg-[#FFC400] px-6 py-3 font-semibold text-[#263238] transition hover:bg-[#E6B000]"
 >
-  Adicionar material
+  {/* Alterna o texto do botão conforme a operação. */}
+{materialEditando !== null ? "Salvar alterações" : "Adicionar material"}
 </button>
+
+{/* Exibe o botão de cancelamento somente durante uma edição. */}
+{materialEditando !== null && (
+  <button
+    type="button"
+    onClick={cancelarEdicao}
+    className="mt-3 w-full rounded-xl border border-[#123F4A] px-6 py-3 font-semibold text-[#123F4A] transition hover:bg-gray-100"
+  >
+    Cancelar edição
+  </button>
+)}
 
 {mensagem && (
   <p className="mt-4 rounded-xl bg-green-100 p-4 text-center font-semibold text-green-800">
@@ -236,11 +302,24 @@ async function excluirMaterial(material) {
   })}
 </p>
 
+{/* Permite selecionar o material para edição. */}
+{/* Botão para editar um material, com ícone de lápis. */}
+<button
+  type="button"
+  onClick={() => iniciarEdicao(material)}
+  className="mt-3 inline-flex items-center justify-center gap-2 rounded-lg bg-[#123F4A] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#0D3038]"
+>
+  <Pencil size={16} />
+  Editar
+</button>
+
+{/* Botão para excluir um material, com ícone de lixeira. */}
 <button
   type="button"
   onClick={() => excluirMaterial(material)}
-  className="mt-3 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+  className="mt-3 inline-flex items-center justify-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700"
 >
+  <Trash2 size={16} />
   Excluir
 </button>
 
