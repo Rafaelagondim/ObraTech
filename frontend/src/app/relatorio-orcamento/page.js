@@ -86,7 +86,9 @@ export default function RelatorioOrcamento() {
   <main
     style={{
       padding: "32px",
-      maxWidth: "1100px",
+      width: "100%",
+      maxWidth: "none",
+      boxSizing: "border-box",
       margin: "0 auto",
       color: "#FFFFFF",
     }}
