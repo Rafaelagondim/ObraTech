@@ -84,6 +84,7 @@ export default function RelatorioOrcamento() {
   // Por enquanto, apenas confirma que a API foi consultada.
  return (
   <main
+  className="relatorio-orcamento"
     style={{
       padding: "32px",
       width: "100%",
@@ -385,20 +386,67 @@ export default function RelatorioOrcamento() {
   ))}
 </section>
     {/* Total consolidado de todos os ambientes */}
-    <section
-      style={{
-        marginTop: "32px",
-        padding: "24px",
-        backgroundColor: "#123F4A",
-        color: "#ffffff",
-        borderRadius: "10px",
-      }}
-    >
-      <h2>Valor total da obra</h2>
-      <p style={{ fontSize: "28px", fontWeight: "bold" }}>
-        {formatarMoeda(relatorio?.totalGeral)}
+    {/* Cartão de destaque do valor total da obra */}
+<section
+  style={{
+    marginTop: "32px",
+    padding: "28px",
+    backgroundColor: "#123F4A",
+    color: "#FFFFFF",
+    borderRadius: "12px",
+    borderBottom: "4px solid #FFC400",
+  }}
+>
+  {/* Título e ícone do orçamento */}
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: "16px",
+    }}
+  >
+    <div>
+      <h2
+        style={{
+          fontSize: "16px",
+          fontWeight: "bold",
+          marginBottom: "4px",
+        }}
+      >
+        VALOR TOTAL DA OBRA
+      </h2>
+
+      <p
+        style={{
+          fontSize: "13px",
+          color: "#D8E0E2",
+        }}
+      >
+        Orçamento consolidado
       </p>
-    </section>
+    </div>
+
+    <span
+      aria-hidden="true"
+      style={{ fontSize: "28px" }}
+    >
+      🧮
+    </span>
+  </div>
+
+  {/* Valor total recebido do relatório */}
+  <p
+    style={{
+      fontSize: "32px",
+      fontWeight: "bold",
+      color: "#FFC400",
+      marginTop: "20px",
+    }}
+  >
+    {formatarMoeda(relatorio?.totalGeral)}
+  </p>
+</section>
     {/* Rodapé do relatório com a data de emissão */}
 <footer
   style={{

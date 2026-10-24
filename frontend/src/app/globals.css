@@ -24,3 +24,37 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Configurações para impressão do relatório ObraTech */
+@media print {
+
+  /* Define o tamanho do papel e as margens */
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  /* Ajusta o relatório à largura da página impressa */
+  .relatorio-orcamento {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: #ffffff !important;
+    box-sizing: border-box;
+    zoom: 0.78;
+  }
+
+    /* Oculta o botão de impressão no PDF */
+  .relatorio-orcamento button {
+    display: none !important;
+  }
+
+    /* Evita dividir um ambiente entre duas páginas do PDF */
+  .relatorio-orcamento article {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: 8px !important;
+  padding: 12px !important;
+}
+}
